@@ -33,4 +33,25 @@ public class CartService {
         return null;
     }
 
+    public boolean modifyCart(Cart cart){
+        Cart c= cartRepository.save(cart);
+        return c!=null;
+    }
+
+    //function to calculate the total price of products in cart
+    public Long totalPrice(){
+        long total=0;
+        List<Cart> listCart = cartRepository.findAll();
+        for(Cart i:listCart){
+            total+=i.getProduct().getProdPrice()*i.getQuantity();
+        }
+        return total;
+    }
+
+    //service to delete cart details after making purchase
+    public boolean deleteCartdetails(){
+        cartRepository.deleteAll();
+        return cartRepository.count()==0;
+    }
+
 }
