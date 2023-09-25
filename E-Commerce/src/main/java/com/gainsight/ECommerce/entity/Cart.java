@@ -12,7 +12,7 @@ public class Cart {
     @Column(name="quantity")
     private int quantity;
 
-    @OneToOne(cascade=CascadeType.ALL)
+    @OneToOne
     @JoinColumn(name = "prod_id")
     private Products product;
 

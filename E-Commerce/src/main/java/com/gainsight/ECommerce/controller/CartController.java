@@ -37,4 +37,26 @@ public class CartController {
         return cartService.getAllCartProducts();
     }
 
+    @CrossOrigin
+    @PutMapping(consumes="application/json")
+    public HttpStatus modifyProduct(@RequestBody Cart cart){
+        if(cartService.modifyCart(cart))
+            return HttpStatus.OK;
+        return HttpStatus.NOT_MODIFIED;
+    }
+
+    @CrossOrigin
+    @GetMapping(value = "/total",produces = "application/json")
+    public Long totalPrice(){
+        return cartService.totalPrice();
+    }
+
+    @CrossOrigin
+    @DeleteMapping
+    public HttpStatus deleteCartDetails(){
+        if(cartService.deleteCartdetails())
+            return HttpStatus.OK;
+        return HttpStatus.NOT_MODIFIED;
+    }
+
 }
