@@ -25,7 +25,7 @@ public class ProductController {
     @CrossOrigin()
     @GetMapping(value="/{category}",produces = "application/json")
     public ResponseEntity<List<Products>> getProductByCategory(@PathVariable String category){
-        return new ResponseEntity<List<Products>>(productService.getproductByCategory(category), HttpStatus.OK);
+        return new ResponseEntity<List<Products>>(productService.getAllProductByCategory(category), HttpStatus.OK);
     }
 
 //    @CrossOrigin

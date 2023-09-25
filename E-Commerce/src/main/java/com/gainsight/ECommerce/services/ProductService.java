@@ -35,6 +35,11 @@ public class ProductService {
         return result;
     }
 
+    @Transactional(readOnly = true)
+    public List<Products> getAllProductByCategory(String category){
+        return productRepository.findByProdCategoryContaining(category);
+    }
+
 
 
 

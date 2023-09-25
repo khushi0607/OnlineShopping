@@ -30,8 +30,9 @@ function runOnLoad() {
                         <div class="col"><label style="font-size:15px" class="fw-bold">Ratings: </label> ${item.prodRating}</div>
                     </div>
                     <br>
-                    <button class="btn btn-primary" id="add${item.prodId}" onclick="addProduct(${item.prodId})" >Add</button>
-                    <button class="btn btn-primary" id="sub${item.prodId}" onclick="removeProduct(${item.prodId})">Remove</button> 
+                    <button class="btn btn-primary" id="${item.prodId}" onclick="Product(${item.prodId})" >Add</button>
+                    <!--<button class="btn btn-primary" id="add${item.prodId}" onclick="addProduct(${item.prodId})" >Add</button>-->
+                    <!--<button class="btn btn-primary" id="sub${item.prodId}" onclick="removeProduct(${item.prodId})">Remove</button> -->
             </div>
             `;
                 dataContainer.appendChild(card);
@@ -40,13 +41,21 @@ function runOnLoad() {
         .catch(error => console.log(error));
 }
 
-function addProduct(productId) {
+function Product(productId){
 
-    let sub = document.getElementById(`sub${productId}`);
-    let add = document.getElementById(`add${productId}`);
-    if (sub.textContent == "Removed")
-        sub.textContent = "Remove";
-    add.textContent = "Added";
+    let prod = document.getElementById(`${productId}`);
+    if(prod.textContent == "Add")
+    {
+        prod.textContent="Remove";
+        addProduct(productId);
+    }
+    else{
+        prod.textContent="Add";
+        removeProduct(productId);
+    }
+}
+
+function addProduct(productId) {
 
     let options = {
         method: "POST",
@@ -62,16 +71,11 @@ function addProduct(productId) {
     fetch('http://localhost:4040/cart', options)
         .then((response) => response.json())
         .then((json) => console.log(json));
+
+    
 }
 
 function removeProduct(productId) {
-
-    let sub = document.getElementById(`sub${productId}`);
-    let add = document.getElementById(`add${productId}`);
-
-    if (add.textContent == "Added")
-        add.textContent = "Add";
-    sub.textContent = "Removed";
 
     const pId = productId;
     let options = {
